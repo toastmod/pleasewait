@@ -14,9 +14,11 @@ fn main()
 
     std::thread::spawn(move || {
         let waiter = waiter_clone;
-        waiter.wake(Ordering::SeqCst);
+        println!("Ping!");
+        waiter.wait(Ordering::SeqCst);
     });
 
-    waiter.wait(Ordering::SeqCst);
+    waiter.wake(Ordering::SeqCst);
+    println!("Pong!");
 }
 ```

@@ -1,4 +1,4 @@
-use std::{sync::{atomic::{AtomicBool, Ordering}, Arc}, thread::Thread};
+use std::{sync::{atomic::Ordering}, thread::Thread};
     
 mod waiter;
 pub use waiter::*;

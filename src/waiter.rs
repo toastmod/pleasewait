@@ -7,14 +7,14 @@ pub struct Waiter {
 
 impl Waiter {
 
-    pub fn wake(self: Arc<Self>, order: Ordering) {
+    pub fn wake(&self, order: Ordering) {
         if self.parked.load(order) {
             self.parked.store(false, order);
             self.thread.unpark();
         }
     }
 
-    pub fn wait(self: Arc<Self>, order: Ordering) {
+    pub fn wait(&self, order: Ordering) {
        self.parked.store(true, order); 
        std::thread::park();
     }

@@ -5,6 +5,8 @@ You can set the `std::sync::atomic::Ordering` of the lock flag to your own likin
 
 ## Example
 ```rust
+use std::{sync::{atomic::Ordering, Arc}};
+use pleasewait::*;
 fn main() 
 {
     let waiter = Waiter::create();

@@ -7,15 +7,15 @@ pub struct Waiter {
 
 impl Waiter {
 
-    pub fn wake(&self, order: Ordering) {
-        if self.parked.load(order) {
-            self.parked.store(false, order);
+    pub fn wake(&self) {
+        if self.parked.load(Ordering::Acquire) {
+            self.parked.store(false, Ordering::Release);
             self.thread.unpark();
         }
     }
 
-    pub fn wait(&self, order: Ordering) {
-       self.parked.store(true, order); 
+    pub fn wait(&self) {
+       self.parked.store(true, Ordering::Release); 
        std::thread::park();
     }
 

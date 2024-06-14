@@ -1,4 +1,4 @@
-use std::{sync::{atomic::Ordering, Arc}, time::Duration};
+use std::{sync::Arc, time::Duration};
 use pleasewait::*;
 fn main() 
 {
@@ -7,11 +7,16 @@ fn main()
 
     std::thread::spawn(move || {
         let waiter = waiter_clone;
-        println!("Ping!");
-        std::thread::sleep(Duration::from_millis(2000));
-        waiter.wake(Ordering::SeqCst);
+        loop {
+            print!("Ping!");
+            std::thread::sleep(Duration::from_millis(400));
+            waiter.wake();
+        }
     });
 
-    waiter.wait(Ordering::SeqCst);
-    println!("Pong!");
+    loop {
+        waiter.wait();
+        println!("Pong!");
+        std::thread::sleep(Duration::from_millis(1000));
+    }
 }

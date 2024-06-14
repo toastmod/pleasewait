@@ -16,10 +16,10 @@ mod tests {
 
         std::thread::spawn(move || {
             let waiter = waiter_clone;
-            waiter.wake(Ordering::SeqCst);
+            waiter.wake();
         });
 
-        waiter.wait(Ordering::SeqCst);
+        waiter.wait();
 
     }
 }
